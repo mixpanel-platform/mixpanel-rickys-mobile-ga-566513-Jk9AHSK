@@ -29,8 +29,6 @@
           /* Funnel Queries */
           $.when(topEvents).done(function(events){
             var event_list = events.values();
-            console.log(event_list);
-            console.log(MP.api)
                 /* Let the Funnel Queries Begin... */
                 _.each(_.keys(event_list), function(key) {
                     var event = event_list[key];
