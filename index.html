@@ -38,8 +38,7 @@
                         var funnelQuery = MP.api.funnel(rootEvent, event);
                         
                         $.when(funnelQuery).done(function(){
-                            console.log(funnelQuery);
-                            console.log(funnelQuery.values());
+                            console.log(results);
                         });
                     }
                 });
