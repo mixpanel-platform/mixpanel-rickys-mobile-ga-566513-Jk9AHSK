@@ -37,7 +37,9 @@
                     if (event != rootEvent) {
                         /* Make Funnel Query */
                         var funnelQuery = MP.api.funnel(rootEvent, event);
-                        console.log(funnelQuery);
+                        $.when(funnelQuery).done(function(){
+                            console.log(funnelQuery.values());
+                        }
                     }
                 });
           });
