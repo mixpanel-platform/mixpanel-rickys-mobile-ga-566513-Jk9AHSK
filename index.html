@@ -30,9 +30,15 @@
           $.when(topEvents).done(function(events){
             var event_list = events.values();
             console.log(event_list);
+            
                 /* Let the Funnel Queries Begin... */
                 _.each(_.keys(event_list), function(key) {
-    
+                    var event = event_list[key];
+                    if (event != rootEvent) {
+                        /* Make Funnel Query */
+                        var funnelQuery = MP.api.funnel(rootEvent, event);
+                        console.log(funnelQuery);
+                    }
                 });
           });
       });
