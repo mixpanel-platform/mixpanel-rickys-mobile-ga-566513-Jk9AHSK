@@ -37,7 +37,7 @@
                     if (event != rootEvent) {
                         /* Make Funnel Query */
                         var funnelParams = {'from':moment().subtract(10, 'days'), 'to':moment(), 'limit':100, 'length':14}
-                        var funnelQuery = MP.api.funnel(rootEvent, event, funnelParams);
+                        var funnelQuery = MP.api.funnel(rootEvent, event);
                         debugger;
                         $.when(funnelQuery).done(function(){
                             console.log(funnelQuery.values());
