@@ -4,6 +4,7 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.mxpnl.com/libs/mixpanel-platform/css/reset.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.mxpnl.com/libs/mixpanel-platform/build/mixpanel-platform.v0.latest.min.css">
     <script src="https://cdn.mxpnl.com/libs/mixpanel-platform/build/mixpanel-platform.v0.latest.min.js"></script>
+    <script src="http://d3js.org/d3.v3.min.js"></script>
   </head>
   <body class="mixpanel-platform-body">
     <div class="mixpanel-platform-section">
@@ -28,19 +29,26 @@
     
           /* Funnel Queries */
           $.when(topEvents).done(function(events){
-            var event_list = events.values();
+            var objs = events.values();
                 /* Let the Funnel Queries Begin... */
-                _.each(_.keys(event_list), function(key) {
-                    var event = event_list[key];
-                    if (event != rootEvent) {
-                        /* Make Funnel Query */
-                        var funnelQuery = MP.api.funnel(rootEvent, event);
-                        
-                        $.when(funnelQuery).done(function(results){
-                            console.log(results);
-                        });
-                    }
-                });
+                var funnelQ = function(event_list){
+                  _.each(_.keys(event_list), function(key) {
+                      var event = event_list[key];
+                      if (event != rootEvent) {
+                          /* Make Funnel Query */
+                          var funnelQuery = MP.api.funnel(rootEvent, event);
+                          
+                          $.when(funnelQuery).done(function(results){
+                              console.log(results);
+                              var event_sum = _.reduce(_.values(results[1]), function(a, b){ return a + b; }, 0);
+                              
+                          });
+                      }
+                  });
+                }
+            /* Graph Root Event */            
+            
+            
           });
       });
     </script>
