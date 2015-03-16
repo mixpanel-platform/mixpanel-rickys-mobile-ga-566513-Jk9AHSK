@@ -85,10 +85,10 @@
           var rootEvent = 'App Open';
           /* Graph Root Event */
           
+          var graphData = {'name':rootEvent};
+            
           addNode(graphData);
           
-          var graphData = {'name':rootEvent};
-    
           /* Top Event Queries   */  
           var topEventsParams = {'limit':'30'};
           var topEvents = MP.api.topEvents(topEventsParams);
