@@ -68,8 +68,8 @@
                 .attr("class", "node")
                 .attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; })
                 .on('click', function(val){
-                    nodeQuery(globalEvents, val['name'])
-                  
+                    nodeQuery(globalEvents, val['name']);
+                    
                 })
           
             node.append("circle")
@@ -113,21 +113,25 @@
                             var funnelQuery = MP.api.funnel(rootEvent, event);
                             
                             $.when(funnelQuery).done(function(results){
-                                
                                 /* Sum over Funnel values */
                                 var total = 0;
                                 _.each(_.values(results[1]), function(funnelObj){ total += funnelObj['count']})
                                 nodes[event] = total;
-                                console.log(nodes);
-                                
                             });
+                            
+                            /* Add nodes to graphData */
+                            console.log(nodes);
+                            console.log('nodes');
+                            
+                            /* Call addNode */
+                            
                         }
                     });
                 }
             
             /* Now each time a user clicks on a node, grab the event and make a nodeQuery */
             /// .. .click, query for children
-            nodeQuery(objs, undefined);
+            
             
             
           });
