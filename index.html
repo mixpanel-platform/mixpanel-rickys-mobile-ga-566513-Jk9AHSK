@@ -102,39 +102,41 @@
                 objs = events.values();
                 /* Store top events */
                 _.each(_.keys(objs), function(key){globalEvents.push(key)});
-               
-                /* Let the Funnel Queries Begin... */
-                
-                var nodeQuery = function(event_list, node){
-                    /* Dict with top counts for each event */
-                    var nodes = {};
-                    _.each(_.keys(event_list), function(key) {
-                        var event = event_list[key];
-                        if (event != rootEvent) {
-                            /* Make Funnel Query */
-                            var funnelQuery = MP.api.funnel(rootEvent, event);
-                            
-                            $.when(funnelQuery).done(function(results){
-                                /* Sum over Funnel values */
-                                var total = 0;
-                                _.each(_.values(results[1]), function(funnelObj){ total += funnelObj['count']})
-                                nodes[event] = total;
-                            });
-                            /* Add nodes to graphData */
-                            
-                            
-                            /* Call addNode */
-                            
-                        }
-                    });   
-                }
-            nodeQuery(objs, 'App Open');
-            /* Now each time a user clicks on a node, grab the event and make a nodeQuery */
-            /// .. .click, query for children
-            
-            
-            
           });
+          
+          /* Let the Funnel Queries Begin... */
+          
+          var nodeQuery = function(event_list, node){
+              /* Dict with top counts for each event */
+              var nodes = {};
+              _.each(_.keys(event_list), function(key) {
+                  var event = event_list[key];
+                  if (event != rootEvent) {
+                      /* Make Funnel Query */
+                      var funnelQuery = MP.api.funnel(rootEvent, event);
+                      
+                      $.when(funnelQuery).done(function(results){
+                          /* Sum over Funnel values */
+                          var total = 0;
+                          _.each(_.values(results[1]), function(funnelObj){ total += funnelObj['count']})
+                          nodes[event] = total;
+                      });
+                      /* Add nodes to graphData */
+                      
+                      
+                      /* Call addNode */
+                      
+                  }
+              });   
+          }
+          
+          nodeQuery(objs, 'App Open');
+          /* Now each time a user clicks on a node, grab the event and make a nodeQuery */
+          /// .. .click, query for children
+            
+            
+            
+          
       });
     </script>
   </body>
