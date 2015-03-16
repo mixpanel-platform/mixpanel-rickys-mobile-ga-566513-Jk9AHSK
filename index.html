@@ -33,21 +33,22 @@
                 /* Let the Funnel Queries Begin... */
                 console.log(objs);
                 var funnelQ = function(event_list){
-                  _.each(_.keys(event_list), function(key) {
-                      var event = event_list[key];
-                      if (event != rootEvent) {
-                          /* Make Funnel Query */
-                          var funnelQuery = MP.api.funnel(rootEvent, event);
-                          
-                          $.when(funnelQuery).done(function(results){
-                              console.log(results);
-                              var event_sum = _.reduce(_.values(results[1]), function(a, b){ return a + b; }, 0);
-                              console.log(event_sum);
-                          });
-                      }
-                  });
+                    _.each(_.keys(event_list), function(key) {
+                        var event = event_list[key];
+                        if (event != rootEvent) {
+                            /* Make Funnel Query */
+                            var funnelQuery = MP.api.funnel(rootEvent, event);
+                            
+                            $.when(funnelQuery).done(function(results){
+                                console.log(results);
+                                var event_sum = _.reduce(_.values(results[1]), function(a, b){ return a + b; }, 0);
+                                console.log(event_sum);
+                            });
+                        }
+                    });
                 }
-            /* Graph Root Event */            
+            /* Graph Root Event */  
+            funnelQ('App Open');
             
             
           });
