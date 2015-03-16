@@ -125,8 +125,11 @@
                             /* Call addNode */
                             
                         }
-                    });
-                    console.log(nodes);
+                    }).then(function(){
+                      console.log('nodes');
+                      console.log(nodes);
+                    })
+                    
                 }
             nodeQuery(objs, 'App Open');
             /* Now each time a user clicks on a node, grab the event and make a nodeQuery */
