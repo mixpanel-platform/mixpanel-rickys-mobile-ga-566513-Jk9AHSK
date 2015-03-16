@@ -31,11 +31,13 @@
           $.when(topEvents).done(function(events){
                 var objs = events.values();
                 /* Store top events */
-                _.each(_.keys(objs), function(key){globalEvents.push(key)}); 
-                var nodes = [];
+                _.each(_.keys(objs), function(key){globalEvents.push(key)});
+               
                 /* Let the Funnel Queries Begin... */
                 console.log(objs);
                 var funnelQ = function(event_list){
+                    /* Dict with top counts for each event */
+                    var nodes = {};
                     _.each(_.keys(event_list), function(key) {
                         var event = event_list[key];
                         if (event != rootEvent) {
@@ -45,14 +47,18 @@
                             $.when(funnelQuery).done(function(results){
                                 console.log(results);
                                 debugger;
-                                /* Sum over daily values in Funnel */
-                                console.log()
-                                
+                                /* Sum over Funnel values */
+                                var total = 0;
+                                _.each(_.values(results[1]), function(funnelObj){ total += funnelObj['count']})
+                                nodes[event] = total;
+                                console.log(nodes);
                             });
                         }
                     });
                 }
             /* Graph Root Event */  
+            
+            
             funnelQ(objs);
             
             
