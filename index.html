@@ -121,20 +121,18 @@
                           var total = 0;
                           _.each(_.values(results[1]), function(funnelObj){ total += funnelObj['count']})
                           nodes[event] = total;
+                          console.log(nodes);
                       });
                   }
               });
               
               
              
-              var callback = function() {
-                /* Add nodes to graphData */
-                console.log(nodes);
-                
-                /* Call addNode */  
-              }        
               
-              setTimeout(callback(), 3000);
+              /* Add nodes to graphData */
+              
+              /* Call addNode */ 
+              //addNode(graphData);
               
           }
       });
