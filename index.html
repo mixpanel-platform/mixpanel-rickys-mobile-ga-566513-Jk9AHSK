@@ -37,7 +37,7 @@
     <script>
       MP.api.ready(function() {
           var width = 960;
-          var height = 2200;
+          var height = 1500;
           var cluster = d3.layout.cluster()
                 .size([height, width - 160]);
             
@@ -67,7 +67,10 @@
               .enter().append("g")
                 .attr("class", "node")
                 .attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; })
-                .on('click', function(val){console.log(val)})
+                .on('click', function(val){
+                    nodeQuery(globalEvents, val['name'])
+                  
+                })
           
             node.append("circle")
                 .attr("r", 4.5);
@@ -89,11 +92,12 @@
           /* Top Event Queries   */  
           var topEventsParams = {'limit':'30'};
           var topEvents = MP.api.topEvents(topEventsParams);
-          var globalEvents = [];
+          /* Global Event List */
+          var objs = {};
     
           /* Funnel Queries */
           $.when(topEvents).done(function(events){
-                var objs = events.values();
+                objs = events.values();
                 /* Store top events */
                 _.each(_.keys(objs), function(key){globalEvents.push(key)});
                
@@ -115,6 +119,7 @@
                                 _.each(_.values(results[1]), function(funnelObj){ total += funnelObj['count']})
                                 nodes[event] = total;
                                 console.log(nodes);
+                                
                             });
                         }
                     });
