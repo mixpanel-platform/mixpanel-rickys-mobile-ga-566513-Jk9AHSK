@@ -34,8 +34,8 @@
                 _.each(_.keys(objs), function(key){globalEvents.push(key)});
                
                 /* Let the Funnel Queries Begin... */
-                console.log(objs);
-                var funnelQ = function(event_list){
+                
+                var nodeQuery = function(event_list, node){
                     /* Dict with top counts for each event */
                     var nodes = {};
                     _.each(_.keys(event_list), function(key) {
@@ -59,7 +59,9 @@
             /* Graph Root Event */  
             
             
-            funnelQ(objs);
+            /* Now each time a user clicks on a node, grab the event and make a nodeQuery */
+            
+            nodeQuery(objs, undefined);
             
             
           });
