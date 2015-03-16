@@ -94,6 +94,7 @@
           var topEvents = MP.api.topEvents(topEventsParams);
           /* Global Event List */
           var objs = {};
+          var globalEvents = [];
     
           /* Funnel Queries */
           $.when(topEvents).done(function(events){
