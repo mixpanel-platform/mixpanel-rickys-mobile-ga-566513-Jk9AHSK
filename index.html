@@ -25,11 +25,13 @@
           /* Top Event Queries   */  
           var topEventsParams = {'limit':'30'};
           var topEvents = MP.api.topEvents(topEventsParams);
-    
+          var globalEvents = [];
     
           /* Funnel Queries */
           $.when(topEvents).done(function(events){
                 var objs = events.values();
+                /* Store top events */
+                _.each(_.keys(objs), function(key){globalEvents.push(key)}); 
                 var nodes = [];
                 /* Let the Funnel Queries Begin... */
                 console.log(objs);
