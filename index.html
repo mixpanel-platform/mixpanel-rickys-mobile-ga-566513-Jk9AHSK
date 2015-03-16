@@ -118,7 +118,7 @@
                                 var total = 0;
                                 _.each(_.values(results[1]), function(funnelObj){ total += funnelObj['count']})
                                 nodes[event] = total;
-                            }).promise().done(function(nodes){
+                            }).promise().done(function(){
                                 console.log(nodes);                            
                             });
                             
