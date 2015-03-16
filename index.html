@@ -115,7 +115,7 @@
                   if (event != rootEvent) {
                       /* Make Funnel Query */
                       var funnelQuery = MP.api.funnel(rootEvent, event);
-                      debugger;
+                      
                       $.when(funnelQuery).done(function(results){
                           /* Sum over Funnel values */
                           var total = 0;
@@ -125,7 +125,7 @@
                   }
               });
               
-              setTimeout(callback, 3000);
+              setTimeout(callback(), 3000);
              
               var callback = function() {
                 /* Add nodes to graphData */
