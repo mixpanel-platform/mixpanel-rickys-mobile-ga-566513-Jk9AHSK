@@ -46,7 +46,7 @@
                             
                             $.when(funnelQuery).done(function(results){
                                 console.log(results);
-                                debugger;
+                                
                                 /* Sum over Funnel values */
                                 var total = 0;
                                 _.each(_.values(results[1]), function(funnelObj){ total += funnelObj['count']})
