@@ -41,7 +41,7 @@
                           $.when(funnelQuery).done(function(results){
                               console.log(results);
                               var event_sum = _.reduce(_.values(results[1]), function(a, b){ return a + b; }, 0);
-                              
+                              console.log(event_sum);
                           });
                       }
                   });
