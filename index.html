@@ -67,6 +67,7 @@
               .enter().append("g")
                 .attr("class", "node")
                 .attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; })
+                .on('click', function(val){console.log(val)})
           
             node.append("circle")
                 .attr("r", 4.5);
