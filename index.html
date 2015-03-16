@@ -55,6 +55,8 @@
             
             var nodes = cluster.nodes(data),
                 links = cluster.links(nodes);
+            console.log(nodes);
+            console.log(svg);
           
             var link = svg.selectAll(".link")
                 .data(links)
