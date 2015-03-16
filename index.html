@@ -115,20 +115,20 @@
                   if (event != rootEvent) {
                       /* Make Funnel Query */
                       var funnelQuery = MP.api.funnel(rootEvent, event);
-                      
+                      debugger;
                       $.when(funnelQuery).done(function(results){
                           /* Sum over Funnel values */
                           var total = 0;
                           _.each(_.values(results[1]), function(funnelObj){ total += funnelObj['count']})
                           nodes[event] = total;
                       });
-                      /* Add nodes to graphData */
-                      
-                      
-                      /* Call addNode */
-                      
                   }
-              });   
+              });
+              
+              /* Add nodes to graphData */
+                      
+                      
+              /* Call addNode */
           }
           
           nodeQuery(objs, 'App Open');
