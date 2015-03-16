@@ -125,19 +125,17 @@
                   }
               });
               
-              /* Add nodes to graphData */
+              setTimeout(callback, 3000);
+             
+              var callback = function() {
+                /* Add nodes to graphData */
+                console.log(nodes);
+                
+                /* Call addNode */  
+              }        
                       
-                      
-              /* Call addNode */
+              
           }
-          
-          nodeQuery(objs, 'App Open');
-          /* Now each time a user clicks on a node, grab the event and make a nodeQuery */
-          /// .. .click, query for children
-            
-            
-            
-          
       });
     </script>
   </body>
