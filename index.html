@@ -67,6 +67,7 @@
               .enter().append("g")
                 .attr("class", "node")
                 .attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; })
+                .style('cursor','pointer')
                 .on('click', function(val){
                     nodeQuery(globalEvents, val['name']);
                     
