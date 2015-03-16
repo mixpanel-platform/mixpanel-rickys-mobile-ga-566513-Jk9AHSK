@@ -31,6 +31,7 @@
           $.when(topEvents).done(function(events){
             var objs = events.values();
                 /* Let the Funnel Queries Begin... */
+                console.log(objs);
                 var funnelQ = function(event_list){
                   _.each(_.keys(event_list), function(key) {
                       var event = event_list[key];
