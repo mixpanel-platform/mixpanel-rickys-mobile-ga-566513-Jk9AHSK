@@ -30,7 +30,7 @@
           /* Funnel Queries */
           $.when(topEvents).done(function(events){
                 var objs = events.values();
-                console.log('here');
+                
                 /* Let the Funnel Queries Begin... */
                 console.log(objs);
                 var funnelQ = function(event_list){
@@ -49,7 +49,7 @@
                     });
                 }
             /* Graph Root Event */  
-            funnelQ('App Open');
+            funnelQ(objs);
             
             
           });
