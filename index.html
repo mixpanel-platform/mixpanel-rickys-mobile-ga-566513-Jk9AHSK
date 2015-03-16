@@ -118,12 +118,12 @@
                                 var total = 0;
                                 _.each(_.values(results[1]), function(funnelObj){ total += funnelObj['count']})
                                 nodes[event] = total;
+                            }).promise().done(function(nodes){
+                                console.log(nodes);                            
                             });
                             
                             /* Add nodes to graphData */
-                            debugger;
-                            console.log(nodes);
-                            console.log('nodes');
+                            
                             
                             /* Call addNode */
                             
