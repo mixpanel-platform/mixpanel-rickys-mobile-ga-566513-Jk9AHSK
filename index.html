@@ -114,9 +114,9 @@
               
               _.each(_.keys(event_list), function(key) {
                   var event = event_list[key];
-                  if (event != rootEvent) {
+                  if (event) {
                       /* Make Funnel Query */
-                      var funnelQuery = MP.api.funnel(rootEvent, event);
+                      var funnelQuery = MP.api.funnel(node, event);
                       
                       $.when(funnelQuery).done(function(results){
                           /* Sum over Funnel values */
