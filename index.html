@@ -85,7 +85,11 @@
           /* Tip of the Spear */
           var rootEvent = 'App Open';
           /* Graph Root Event */
-          var graphData = {'name':rootEvent};
+          var graphData = {
+            'name':rootEvent,
+            'children':[]        
+          };
+          
             
           addNode(graphData);
           
@@ -124,13 +128,11 @@
                     total = 0;
                     _.each(_.values(data[1]), function(funnelObj){ total += funnelObj['count']});
                     nodes[_.values(data[1])[0]['event']] = total;
-                })
-                
+                });
               }).then(function(){
                  /* Add Data to Graph Data */
-                 var sorted_list = [];
-                 _.each(_.values(keys), function(){
-                 
+                 // graphData['children']
+                 //addNode(graphData);
               });
                 
               
@@ -138,8 +140,7 @@
              
               
               
-              /* Call addNode */ 
-              //addNode(graphData);
+              
               
           }
       });
