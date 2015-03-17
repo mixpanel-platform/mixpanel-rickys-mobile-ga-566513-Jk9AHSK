@@ -52,6 +52,7 @@
           
           function addNode(data){ 
             
+            console.log(data);
             var nodes = cluster.nodes(data),
                 links = cluster.links(nodes);
     
@@ -73,7 +74,7 @@
                       alert("Drive slow.");
                     } else {
                       nodeQuery(objs, val['name'], val['id']);
-                      ids.append(val['id'])
+                      ids.push(val['id'])
                       console.log(val);
                     }
                 })
