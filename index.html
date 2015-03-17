@@ -114,7 +114,7 @@
               
               _.each(_.keys(event_list), function(key) {
                   var event = event_list[key];
-                  if (event) {
+                  if (event != rootEvent) {
                       /* Make Funnel Query */
                       console.log(node, event);
                       var funnelQuery = MP.api.funnel(node, event);
