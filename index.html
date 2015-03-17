@@ -116,6 +116,7 @@
                   var event = event_list[key];
                   if (event) {
                       /* Make Funnel Query */
+                      console.log(node, event);
                       var funnelQuery = MP.api.funnel(node, event);
                       
                       $.when(funnelQuery).done(function(results){
