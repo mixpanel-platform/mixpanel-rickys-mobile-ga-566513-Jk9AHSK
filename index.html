@@ -98,7 +98,8 @@
             'children':[]        
           };
           console.log(graphData['children'], 'here');
-          
+          graphData['children'].push(1);
+          debugger;
             
           addNode(graphData);
           
@@ -148,6 +149,7 @@
                  _.each(_.keys(nodes), function(key){
                    /* Find the ID of the element that we care about -- Add this logic in */
                    graphData['children'].push({'name':key, 'id':randomNum()})
+                   debugger;
                  })
                  addNode(graphData);
               });
