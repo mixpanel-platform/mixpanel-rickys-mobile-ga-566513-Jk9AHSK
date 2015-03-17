@@ -69,6 +69,7 @@
                 .attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; })
                 .style('cursor','pointer')
                 .on('click', function(val){
+                    console.log(val['name'])
                     nodeQuery(globalEvents, val['name']);
                     console.log('here');
                     
@@ -110,6 +111,7 @@
           var nodeQuery = function(event_list, node){
               /* Dict with top counts for each event */
               var nodes = {};
+              
               _.each(_.keys(event_list), function(key) {
                   var event = event_list[key];
                   if (event != rootEvent) {
