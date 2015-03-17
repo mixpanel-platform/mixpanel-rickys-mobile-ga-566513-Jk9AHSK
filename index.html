@@ -92,7 +92,7 @@
           /* Tip of the Spear */
           var rootEvent = 'App Open';
           /* Graph Root Event */
-          graphData = {
+          var graphData = {
             'name':rootEvent,
             'id': 1,
             'children':[]        
@@ -145,7 +145,7 @@
                  /* Add Data to Graph Data */
                  _.each(_.keys(nodes), function(key){
                    /* Find the ID of the element that we care about -- Add this logic in */
-                   console.log(graphData);
+                  console.log(graphData);
                    graphData['children'].push({'name':key, 'id':randomNum()});
                    
                   
