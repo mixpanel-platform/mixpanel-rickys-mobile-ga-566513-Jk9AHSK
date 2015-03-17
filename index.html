@@ -118,9 +118,9 @@
                   if (event != rootEvent) {
                       /* Build a list of promises */
                       promises.push(MP.api.funnel(node, event));
-                    
                   }
               });
+              /* Make Funnel Queries */
               Promise.all(promises).then(function(promiseArray){
                 _.each(promiseArray, function(data){ console.log(data);});
               }).then(function(){
