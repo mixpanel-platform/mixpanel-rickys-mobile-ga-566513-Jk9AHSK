@@ -117,25 +117,15 @@
                   var event = event_list[key];
                   if (event != rootEvent) {
                       /* Make Funnel Query */
-                      console.log(node, event);
                       promises.push(MP.api.funnel(node, event));
                       
                       Promise.all(promises).then(function(promiseArray){
-                        console.log(promiseArray);
-                        _.each(promiseArray, function(data){
-                            console.log(data);
-                        });
+                        _.each(promiseArray, function(data){ console.log(data);});
+                      }).then(function(){
+                        console.log('done');
                         
                       });
-                      /*
-                        $.when(funnelQuery).done(function(results){
-                            Sum over Funnel values
-                            var total = 0;
-                            _.each(_.values(results[1]), function(funnelObj){ total += funnelObj['count']})
-                            nodes[event] = total;
-                            console.log(nodes);
-                        });
-                      */
+                     
                   }
               });
               
