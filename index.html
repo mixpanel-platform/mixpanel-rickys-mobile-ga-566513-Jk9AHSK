@@ -116,15 +116,14 @@
               _.each(_.keys(event_list), function(key) {
                   var event = event_list[key];
                   if (event != rootEvent) {
-                      /* Make Funnel Query */
+                      /* Build a list of promises and make Funnel Queries */
                       promises.push(MP.api.funnel(node, event));
                       
-                      Promise.all(promises).then(function(promiseArray){
+                      Promise.all(promises).done(function(promiseArray){
                         _.each(promiseArray, function(data){ console.log(data);});
-                      }).done(function(){
+                      }).then(function(){
                         console.log('done');
-                        
-                      });
+                      })
                      
                   }
               });
