@@ -121,7 +121,7 @@
                       
                       Promise.all(promises).then(function(promiseArray){
                         _.each(promiseArray, function(data){ console.log(data);});
-                      }).then(function(){
+                      }).done(function(){
                         console.log('done');
                         
                       });
