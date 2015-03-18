@@ -67,7 +67,6 @@
                 .attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; })
                 .style('cursor','pointer')
                 .on('click', function(val){
-                  
                     if (val.id in ids) {
                       alert("Drive slow.");
                     } else {
@@ -143,11 +142,12 @@
                  
                  _.each(_.keys(nodes), function(key){
                    /* Find the ID of the element that we care about -- Add this logic in */
-                  if (node.children) {
-                      node.children.push({'name':key});
-                  } else {
-                      node.children = [{'name':key}];
-                  }
+                    var rando = randomNum();
+                    if (node.children) {
+                        node.children.push({'name':key, 'id':rando});
+                    } else {
+                        node.children = [{'name':key,'id':rando}];
+                    }
                   
                  })
                  console.log(node);
