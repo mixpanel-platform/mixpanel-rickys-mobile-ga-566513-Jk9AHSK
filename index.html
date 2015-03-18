@@ -61,9 +61,9 @@
                 .attr("class", "link")
                 .attr("d", diagonal);
           
-            var node = svg.selectAll(".node")
-                .data(nodes)
-              .enter().append("g")
+            var allNodes = svg.selectAll(".node").data(nodes);
+            
+            var node = allNodes.enter().append("g")
                 .attr("class", "node")
                 .attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; })
                 .style('cursor','pointer')
@@ -76,6 +76,8 @@
                       ids.push(val['id'])
                     }
                 })
+                
+            allNodes.attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; });
           
             node.append("circle")
                 .attr("r", 4.5);
