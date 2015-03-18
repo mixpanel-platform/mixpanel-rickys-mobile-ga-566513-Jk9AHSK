@@ -61,7 +61,7 @@
                 .attr("class", "link")
                 .attr("d", diagonal);
           
-            var nodes = svg.selectAll(".node")
+            var node = svg.selectAll(".node")
                 .data(nodes)
               .enter().append("g")
                 .attr("class", "node")
