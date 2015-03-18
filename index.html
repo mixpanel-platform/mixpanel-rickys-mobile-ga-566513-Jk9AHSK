@@ -141,12 +141,10 @@
                     nodes[_.values(data[1])[0]['event']] = total;
                 });
               }).then(function(){
-                  console.log(nodes);
+                  
                  /* Add Data to Graph Data */
                  _.each(_.keys(nodes), function(key){
                    /* Find the ID of the element that we care about -- Add this logic in */
-                   
-                  console.log(node);
                   if (node.children) {
                     node['children'].push({'name':key, });
                   } else {
@@ -155,6 +153,7 @@
                   
                  })
                  addNode(node);
+                 console.log(graphData);
               });
           }
       });
