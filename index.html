@@ -70,7 +70,7 @@
                 .style('z-index', 10)
                 .on('click', function(val){
                     if (val.id in ids) {
-                      alert("Drive slow.");
+                      alert("Sorry!  You've already clicked this node!");
                     } else {
                       nodeQuery(objs, val);
                       ids.push(val['id'])
