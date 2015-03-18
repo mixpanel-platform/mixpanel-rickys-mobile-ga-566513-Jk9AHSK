@@ -63,6 +63,7 @@
           
             var allNodes = svg.selectAll(".node").data(nodes);
             var node = allNodes.enter().append("g")
+                .attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; });
                 .attr("class", "node")
                 .style('cursor','pointer')
                 .on('click', function(val){
