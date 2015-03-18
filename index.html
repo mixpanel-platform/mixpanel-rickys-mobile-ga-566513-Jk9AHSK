@@ -146,12 +146,13 @@
                  _.each(_.keys(nodes), function(key){
                    /* Find the ID of the element that we care about -- Add this logic in */
                   if (node.children) {
-                    node['children'].push({'name':key, });
+                    node.children.push({'name':key, });
                   } else {
-                    node['children'] = [{'name':key}];
+                    node.children = [{'name':key}];
                   }
                   
                  })
+                 console.log(node);
                  addNode(node);
                  console.log(graphData);
               });
