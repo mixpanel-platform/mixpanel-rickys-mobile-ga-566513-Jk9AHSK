@@ -70,6 +70,7 @@
                 .attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; })
                 .style('cursor','pointer')
                 .on('click', function(val){
+                  console.log(val);
                     if (val.id in ids) {
                       alert("Drive slow.");
                     } else {
