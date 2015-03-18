@@ -74,7 +74,7 @@
                     if (val.id in ids) {
                       alert("Drive slow.");
                     } else {
-                      nodeQuery(objs, val.name, val.id);
+                      nodeQuery(objs, val);
                       ids.push(val['id'])
                       console.log(val);
                     }
@@ -120,7 +120,7 @@
           
           /* Let the Funnel Queries Begin... */
           
-          var nodeQuery = function(event_list, node, id){
+          var nodeQuery = function(event_list, node){
               /* Dict with top counts for each event */
               var nodes = {};
               var promises = []
@@ -146,15 +146,15 @@
                  _.each(_.keys(nodes), function(key){
                    /* Find the ID of the element that we care about -- Add this logic in */
                    
-                  console.log(graphData);
-                  if (graphData.children) {
-                    graphData['children'].push({'name':key, 'id':randomNum()});
+                  console.log(node);
+                  if (node.children) {
+                    node['children'].push({'name':key});
                   } else {
-                    graphData['children'] = [{'name':key, 'id':randomNum()}];
+                    node['children'] = [{'name':key}];
                   }
                   
                  })
-                 addNode(graphData);
+                 addNode(node);
               });
           }
       });
