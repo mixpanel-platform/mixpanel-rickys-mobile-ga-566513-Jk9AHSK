@@ -145,20 +145,13 @@
                  /* Add Data to Graph Data */
                  _.each(_.keys(nodes), function(key){
                    /* Find the ID of the element that we care about -- Add this logic in */
+                   
                   console.log(graphData);
-                   graphData['children'].push({'name':key, 'id':randomNum()});
+                  graphData['children'].push({'name':key, 'id':randomNum()});
                   
                  })
                  addNode(graphData);
               });
-                
-              
-              
-             
-              
-              
-              
-              
           }
       });
     </script>
