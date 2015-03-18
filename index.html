@@ -15,11 +15,10 @@
       
       .node {
         font: 10px sans-serif;
-        z-index: 5;
+        
       }
       
       .link {
-        z-index:4;
         fill: none;
         stroke: #ccc;
         stroke-width: 1.5px;
@@ -68,6 +67,7 @@
                 .attr("class", "node")
                 .attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; })
                 .style('cursor','pointer')
+                .style('z-index', 10)
                 .on('click', function(val){
                     if (val.id in ids) {
                       alert("Drive slow.");
