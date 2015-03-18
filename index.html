@@ -94,8 +94,7 @@
           /* Graph Root Event */
           var graphData = {
             'name':rootEvent,
-            'id': 1,
-            'children':[]        
+            'id': 1
           };
             
           addNode(graphData);
@@ -147,7 +146,11 @@
                    /* Find the ID of the element that we care about -- Add this logic in */
                    
                   console.log(graphData);
-                  graphData['children'].push({'name':key, 'id':randomNum()});
+                  if (graphData.children) {
+                    graphData['children'].push({'name':key, 'id':randomNum()});
+                  } else {
+                    graphData['children'] = [{'name':key, 'id':randomNum()}];
+                  }
                   
                  })
                  addNode(graphData);
