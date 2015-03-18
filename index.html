@@ -59,7 +59,7 @@
             var link = allLinks.enter().append("path")
                 .attr("class", "link");
                 
-            allLinks.attr("d", diagonal);
+            allLinks.transition().duration(1000).attr("d", diagonal);
           
             var allNodes = svg.selectAll(".node").data(nodes);
             var node = allNodes.enter().append("g")
@@ -76,7 +76,7 @@
                     }
                 })
                 
-            allNodes.attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; });
+            allNodes.transition().duration(1000).attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; });
           
             node.append("circle")
                 .attr("r", 4.5);
@@ -144,7 +144,7 @@
                  _.each(_.keys(nodes), function(key){
                    /* Find the ID of the element that we care about -- Add this logic in */
                   if (node.children) {
-                      node.children.push({'name':key, });
+                      node.children.push({'name':key});
                   } else {
                       node.children = [{'name':key}];
                   }
