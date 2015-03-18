@@ -55,14 +55,13 @@
                 links = cluster.links(nodes);
     
           
-            var link = svg.selectAll(".link")
-                .data(links)
-              .enter().append("path")
-                .attr("class", "link")
-                .attr("d", diagonal);
+            var allLinks = svg.selectAll(".link").data(links);
+            var link = allLinks.enter().append("path")
+                .attr("class", "link");
+                
+            allLinks.attr("d", diagonal);
           
             var allNodes = svg.selectAll(".node").data(nodes);
-            
             var node = allNodes.enter().append("g")
                 .attr("class", "node")
                 .attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; })
