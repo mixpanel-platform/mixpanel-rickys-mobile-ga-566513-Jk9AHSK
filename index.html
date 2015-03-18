@@ -129,7 +129,7 @@
                   var event = event_list[key];
                   if (event != rootEvent) {
                       /* Build a list of promises */
-                      promises.push(MP.api.funnel(node, event));
+                      promises.push(MP.api.funnel(node.name, event));
                   }
               });
               
@@ -148,13 +148,13 @@
                    
                   console.log(node);
                   if (node.children) {
-                    node['children'].push({'name':key});
+                    node['children'].push({'name':key, });
                   } else {
                     node['children'] = [{'name':key}];
                   }
                   
                  })
-                 addNode(node);
+                 addNode(graphData);
               });
           }
       });
