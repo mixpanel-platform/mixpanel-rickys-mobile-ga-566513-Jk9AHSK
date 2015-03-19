@@ -67,13 +67,12 @@
                 .attr("class", "node")
                 .attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; })
                 .style('cursor','pointer')
-                .style('z-index', 10)
                 .on('click', function(val){
                     if (val.id in ids) {
                       alert("Sorry!  You've already clicked this node!");
                     } else {
                       nodeQuery(objs, val);
-                      ids.push(val['id'])
+                      ids.push(val.id)
                     }
                 })
                 
@@ -86,6 +85,7 @@
                 .attr("dx", function(d) { return d.children ? -8 : 8; })
                 .attr("dy", 3)
                 .style("text-anchor", function(d) { return d.children ? "end" : "start"; })
+                .style('z-index', 100)
                 .text(function(d) { return d.name; });
           }
         
@@ -145,6 +145,7 @@
                  _.each(_.keys(nodes), function(key){
                    /* Find the ID of the element that we care about -- Add this logic in */
                     var rando = randomNum();
+                   
                     if (node.children) {
                         node.children.push({'name':key, 'id':rando});
                     } else {
