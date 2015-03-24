@@ -106,9 +106,9 @@
           
           
           $.when(rootEventCount).done(function(eventCount){
-              debugger;
-              
-              console.log(count);
+              eventTotal = 0;
+              _.each(_.values(eventCount[0]), function(count){ eventTotal += count['count']});
+              console.log(eventTotal);
               debugger;
               graphData['count'] = count;
           });
