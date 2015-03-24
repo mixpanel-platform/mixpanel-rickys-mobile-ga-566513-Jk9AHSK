@@ -102,7 +102,13 @@
           };
 
           /* Find the Root Event Count */
-          var rootEventCount = MP.api.events(rootEvent, )
+          var rootEventCountParams = {'unit':'month'};
+          var rootEventCount = MP.api.events(rootEvent, params);
+          
+          $.when(rootEventCount).done(function(eventCount){
+              console.log(eventCount.values());
+            
+          });
 
           addNode(graphData);
 
