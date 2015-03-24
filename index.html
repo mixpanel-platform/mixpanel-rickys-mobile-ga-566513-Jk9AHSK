@@ -142,7 +142,7 @@
 
               _.each(_.keys(event_list), function(key) {
                   var event = event_list[key];
-                  if (event != rootEvent) {
+                  if (event != node.name) {
                       /* Build a list of promises */
                       promises.push(MP.api.funnel(node.name, event));
                   }
