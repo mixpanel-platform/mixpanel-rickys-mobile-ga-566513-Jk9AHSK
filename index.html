@@ -81,7 +81,10 @@
                       nodeQuery(objs, val);
                       ids.push(val.id)
                     }
-                })
+                }) 
+                .append("svg:title")
+              .text(function(d) { return "Event Count " + d.count; });
+
 
             allNodes.transition().duration(1000).attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; });
             node.append("circle")
