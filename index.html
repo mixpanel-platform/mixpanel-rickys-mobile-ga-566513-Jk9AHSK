@@ -154,12 +154,10 @@
                         parent = node.parent;
                         while (parent.name !=  rootEvent){
                             events.push(parent.name);
-                            debugger;
                             parent = parent.parent;  
                         }
                         events.push(rootEvent);
-                        console.log(events.reverse().join("\" , \""));
-                        promises.push(MP.api.funnel(events.reverse().join("\" , \"")));
+                        promises.push(MP.api.funnel(events.reverse()));
                         
                       } else {
                         promises.push(MP.api.funnel(node.name, event));
