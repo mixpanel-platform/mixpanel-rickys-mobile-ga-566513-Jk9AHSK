@@ -159,8 +159,8 @@
                             parent = parent.parent;  
                         }
                         events.push(rootEvent);
-                        console.log(events);
-                        promises.push(MP.api.funnel(events.reverse()));
+                        console.log(events.reverse().join("\" , \""));
+                        promises.push(MP.api.funnel(events.reverse().join("\" , \"")));
                         
                       } else {
                         promises.push(MP.api.funnel(node.name, event));
