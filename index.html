@@ -64,7 +64,7 @@
               .attr("height", height)
               .append("g")
               .attr("transform", "translate(40,0)");
-          svg.call(tip);
+          
 
           function addNode(data){
             var nodes = cluster.nodes(data),
@@ -87,7 +87,8 @@
                 .html(function(d) {
                   return "<strong>Frequency:</strong> <span style='color:blue'>" + d.count + "</span>";
                 });
-                
+            svg.call(tip);
+            
             var node = allNodes.enter().append("g")
                 .attr("class", "node")
                 .attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; })
