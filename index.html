@@ -113,10 +113,10 @@
               eventTotal = 0;
               _.each(_.values(eventCount[0]), function(count){ eventTotal += count['count']});
               graphData['count'] = eventTotal;
+              addNode(graphData);
           });
 
-          addNode(graphData);
-
+          
           /* Top Event Queries   */
           var topEventsParams = {'limit':'30'};
           var topEvents = MP.api.topEvents(topEventsParams);
