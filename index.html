@@ -158,8 +158,7 @@
                         }
                         events.push(rootEvent);
                         events.reverse();
-                        debugger;
-                        promises.push(MP.api.funnel.apply(this, events));
+                        promises.push(MP.api.funnel.apply(MP.api, events));
                         
                       } else {
                         promises.push(MP.api.funnel(node.name, event));
