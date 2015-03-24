@@ -107,8 +107,8 @@
           
           
           $.when(rootEventCount).done(function(eventCount){
-             
-              var count = eventCount.values()[rootEvent].values().pop();
+              debugger;
+              var count = _.values(eventCount.values()[rootEvent]).pop();
               console.log(count);
               debugger;
               graphData['count'] = count;
