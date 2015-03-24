@@ -103,7 +103,7 @@
 
           /* Find the Root Event Count */
           var rootEventCountParams = {'unit':'month'};
-          var rootEventCount = MP.api.events(rootEvent, params);
+          var rootEventCount = MP.api.events(rootEvent, rootEventCountParams);
           
           $.when(rootEventCount).done(function(eventCount){
               console.log(eventCount.values());
