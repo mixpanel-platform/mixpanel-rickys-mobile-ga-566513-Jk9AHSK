@@ -50,9 +50,9 @@
             var allLinks = svg.selectAll(".link").data(links);
             var link = allLinks.enter().append("path")
                 .attr("class", "link")
-                .style('stroke-width', function(d) {
+                /*.style('stroke-width', function(d) {
                   return ( d['target']['width'] );
-                });
+                });*/
 
             allLinks.transition().duration(1000).attr("d", diagonal);
 
@@ -101,7 +101,7 @@
           var graphData = {
             'name':rootEvent,
             'id': 1,
-            'width': 50
+            
           };
 
           /* Find the Root Event Count */
@@ -180,15 +180,15 @@
                  _.each(_.keys(nodes), function(key){
                    /* Find the ID of the element that we care about -- Add this logic in */
                     var rando = randomNum();
-                    
+                    /* 
                     var percent = nodes[key] / total;
                     var width = ( node['width'] * percent )
                     if (width < .02 ) { return }; 
-                    
+                    */
                     if (node.children) {
-                        node.children.push({'name':key, 'width': width, 'id':rando, 'count':nodes[key]});
+                        node.children.push({'name':key, 'id':rando, 'count':nodes[key]});
                     } else {
-                        node.children = [{'name':key, 'width': width, 'id':rando, 'count':nodes[key]}];
+                        node.children = [{'name':key, 'id':rando, 'count':nodes[key]}];
                     }
 
                  })
