@@ -183,7 +183,7 @@
                     
                     var percent = nodes[key] / total;
                     var width = ( node['width'] * percent )
-                    // if (width < .02 ) { return }; 
+                    if (width < .02 ) { return }; 
                     
                     if (node.children) {
                         node.children.push({'name':key, 'width': width, 'id':rando, 'count':nodes[key]});
