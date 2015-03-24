@@ -81,7 +81,8 @@
                       ids.push(val.id)
                     }
                 }) 
-
+            node.append('svg:title')
+              .text(function(d) { return d.name; });
 
             allNodes.transition().duration(1000).attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; });
             node.append("circle")
