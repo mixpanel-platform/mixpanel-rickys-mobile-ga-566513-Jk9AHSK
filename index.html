@@ -20,11 +20,9 @@
 
       .link {
         fill: none;
-        stroke: #bdc3c7;
+        stroke: steelblue;
         stroke-linecap: round;
       }
-      
-      
     </style>
   </head>
   <body class="mixpanel-platform-body">
@@ -75,11 +73,11 @@
                   //d3.select("text").style('opacity', 0.4);
                 })
                 .on('click', function(val){
-                    if (val.id in ids) {
+                    if (ids.has(val.id)) {
                       alert("Sorry!  You've already clicked this node!");
                     } else {
                       nodeQuery(objs, val);
-                      ids.push(val.id)
+                      ids.add(val.id)
                     }
                 }) 
             node.append('svg:title')
@@ -122,7 +120,7 @@
           var topEvents = MP.api.topEvents(topEventsParams);
           /* Global Event List */
           var objs = {};
-          var ids = [];
+          var ids = new Set();
           var globalEvents = [];
 
           function randomNum() {
@@ -163,7 +161,7 @@
                    /* Find the ID of the element that we care about -- Add this logic in */
                     var rando = randomNum();
                     var width = nodes[key] / total;
-                    console.log(key, width)
+                    
                     if (width < .02 ) { return }; 
                     
                     if (node.children) {
