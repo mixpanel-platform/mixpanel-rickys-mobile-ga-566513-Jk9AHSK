@@ -158,8 +158,6 @@
                         }
                         events.push(rootEvent);
                         events.reverse();
-                        var funnel_length = events.length();
-                        
                         promises.push(MP.api.funnel.apply(this, events.reverse()));
                         
                       } else {
