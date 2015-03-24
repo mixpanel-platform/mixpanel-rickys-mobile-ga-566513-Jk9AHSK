@@ -101,6 +101,9 @@
             'width': 1
           };
 
+          /* Find the Root Event Count */
+          var rootEventCount = MP.api.events(rootEvent, )
+
           addNode(graphData);
 
           /* Top Event Queries   */
@@ -151,6 +154,7 @@
                     var width = nodes[key] / total;
                     console.log(key, width)
                     if (width < .02 ) { return }; 
+                    
                     if (node.children) {
                         node.children.push({'name':key, 'width': width, 'id':rando});
                     } else {
