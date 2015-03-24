@@ -167,6 +167,7 @@
               });
 
               Promise.all(promises).then(function(promiseArray){
+                console.log(promiseArray)
                 _.each(promiseArray, function(data){
                     console.log(data);
                     total = 0;
