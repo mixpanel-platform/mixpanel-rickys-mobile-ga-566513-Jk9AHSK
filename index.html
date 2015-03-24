@@ -62,15 +62,16 @@
                 .attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; })
                 .style('cursor','pointer')
                 .style('z-index', 10)
+                .style('opacity', 0.6)
                 .on('mouseover', function(d){
                     console.log(d);
-                    d3.select(this).style('opacity', 0.8)
+                    d3.select(this).style('opacity', 1.0)
                     d3.select("text").style('opacity', 1.0);
                 })
-                /* .on('mouseout', function(d){
-                  d3.select(this).style('opacity', 0.4)
-                  d3.select("text").style('opacity', 0.4);
-                })*/
+                .on('mouseout', function(d){
+                  d3.select(this).style('opacity', 0.6)
+                  //d3.select("text").style('opacity', 0.4);
+                })
                 .on('click', function(val){
                     if (val.id in ids) {
                       alert("Sorry!  You've already clicked this node!");
