@@ -81,8 +81,6 @@
                       ids.push(val.id)
                     }
                 }) 
-            node.append("svg:title")
-                .text(function(d) { console.log(d); return "Event Count " + d.count; });
 
 
             allNodes.transition().duration(1000).attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; });
