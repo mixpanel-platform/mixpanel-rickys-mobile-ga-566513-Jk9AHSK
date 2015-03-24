@@ -68,6 +68,7 @@
                 .on('mouseover', function(d){
                     d3.select(this).style('opacity', 1.0)
                     d3.select("text").style('opacity', 1.0);
+                    console.log(d);
                 })
                 .on('mouseout', function(d){
                   d3.select(this).style('opacity', 0.6)
@@ -82,7 +83,7 @@
                     }
                 }) 
             node.append('svg:title')
-              .text(function(d) { return d.name; });
+              .text(function(d) { return d.count; });
 
             allNodes.transition().duration(1000).attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; });
             node.append("circle")
