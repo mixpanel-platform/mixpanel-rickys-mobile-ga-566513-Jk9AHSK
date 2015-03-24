@@ -83,7 +83,7 @@
                     }
                 }) 
             node.append('svg:title')
-              .text(function(d) { return d.count; });
+              .text(function(d) { return String(d.count); });
 
             allNodes.transition().duration(1000).attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; });
             node.append("circle")
