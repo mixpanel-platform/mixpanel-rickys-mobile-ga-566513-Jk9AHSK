@@ -153,8 +153,8 @@
                       events.push(node.name);
                       if (node.name != rootEvent){
                         parent = node.parent;
-                        while (parent !=  rootEvent){
-                            events.push(parent);
+                        while (parent.name !=  rootEvent){
+                            events.push(parent.name);
                             debugger;
                             parent = parent.parent;  
                         }
