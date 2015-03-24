@@ -163,9 +163,9 @@
                     if (width < .02 ) { return }; 
                     
                     if (node.children) {
-                        node.children.push({'name':key, 'width': width, 'id':rando});
+                        node.children.push({'name':key, 'width': width, 'id':rando, 'count':node[key]});
                     } else {
-                        node.children = [{'name':key, 'width': width, 'id':rando}];
+                        node.children = [{'name':key, 'width': width, 'id':rando, 'count':node[key]}];
                     }
 
                  })
