@@ -143,9 +143,27 @@
 
               _.each(_.keys(event_list), function(key) {
                   var event = event_list[key];
+                  var parent;
+                  var events = [];
+                  
                   if (event != node.name) {
                       /* Build a list of promises */
-                      promises.push(MP.api.funnel(node.name, event));
+                      
+                      events.push(event);
+                      events.push(node.name);
+                      if (node.name != rootEvent){
+                        parent = node.parent;
+                        while (parent !=  rootEvent){
+                            events.push(parent);
+                            parent = parent.parent;  
+                        }
+                        events.push(rootEvent);
+                        console.log(events);
+                        promises.push(Mp.api.funnel(events.reverse()));
+                        
+                      } else {
+                        promises.push(MP.api.funnel(node.name, event));
+                      }
                   }
               });
 
