@@ -82,13 +82,13 @@
                       ids.push(val.id)
                     }
                 }) 
-                .append("svg:title")
-              .text(function(d) { return "Event Count " + d.count; });
+            node.append("svg:title")
+                .text(function(d) { return "Event Count " + d.count; });
 
 
             allNodes.transition().duration(1000).attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; });
             node.append("circle")
-              .attr("r", 4.5)
+                .attr("r", 4.5)
 
             node.append("text")
                 .attr("y", function(d) { return d.children ? -18 : 18; })
