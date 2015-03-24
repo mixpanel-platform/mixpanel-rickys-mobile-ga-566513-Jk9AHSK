@@ -12,101 +12,95 @@
         stroke: steelblue;
         stroke-width: 1.5px;
       }
-      
+
       .node {
         font: 10px sans-serif;
-        
+
       }
-      
+
       .link {
         fill: none;
-        stroke: #ccc;
-        stroke-width: 1.5px;
+        stroke: #bdc3c7;
+        stroke-linecap: round;
       }
     </style>
   </head>
   <body class="mixpanel-platform-body">
-    <div class="mixpanel-platform-section">
-      <div id="eventSelect" style="float: left;"></div>
-      <div id="by" class="mixpanel-platform-label" style="margin-left: 10px; display: none;">by</div>
-      <div id="propSelect" style="float: left;"></div>
-      <div id="dateSelect" style="float: right;"></div>
-      <div style="clear: both;"></div>
-      <div id="graph"></div>
-    </div>
-    <div id="table"></div>
     <script>
       MP.api.ready(function() {
           var width = 960;
-          var height = 750;
+          var height = 1500;
           var cluster = d3.layout.cluster()
-                .size([height, width - 160]);
-            
+            .size([height, width - 160])
+
           var diagonal = d3.svg.diagonal()
               .projection(function(d) { return [d.y, d.x]; });
-          
+
           var svg = d3.select("body").append("svg")
               .attr("width", width)
               .attr("height", height)
-            .append("g")
+              .append("g")
               .attr("transform", "translate(40,0)");
-          
-          function addNode(data){ 
-              var nodes = cluster.nodes(data),
-                  links = cluster.links(nodes);
-      
-            
-              var allLinks = svg.selectAll(".link").data(links);
-              var link = allLinks.enter().append("path")
-                  .attr("class", "link");
-                  
-              allLinks.transition().duration(1000).attr("d", diagonal);
-            
-              var allNodes = svg.selectAll(".node").data(nodes);
-              var node = allNodes.enter().append("g")
-                  .attr("class", "node")
-                  .attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; })
-                  .style('cursor','pointer')
-                  .on('click', function(val){
-                      if (val.id in ids) {
-                        alert("Sorry!  You've already clicked this node!");
-                      } else {
-                        nodeQuery(objs, val);
-                        ids.push(val.id)
-                      }
-                  })
-                  
-              allNodes.transition().duration(1000).attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; });
-            
-              node.append("circle")
-                  .attr("r", 4.5);
-            
-              node.append("text")
-                  .attr("dx", function(d) { return d.children ? -8 : 8; })
-                  .attr("dy", 3)
-                  .style("text-anchor", function(d) { return d.children ? "end" : "start"; })
-                  .style('z-index', 10)
-                  .text(function(d) { return d.name; });
+
+          function addNode(data){
+            var nodes = cluster.nodes(data),
+                links = cluster.links(nodes);
+
+
+            var allLinks = svg.selectAll(".link").data(links);
+            var link = allLinks.enter().append("path")
+                .attr("class", "link")
+                .style('stroke-width', function(d) {
+                  return ( 50 / d['target']['depth'] * d['target']['width'] );
+                });
+
+            allLinks.transition().duration(1000).attr("d", diagonal);
+
+            var allNodes = svg.selectAll(".node").data(nodes);
+            var node = allNodes.enter().append("g")
+                .attr("class", "node")
+                .attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; })
+                .style('cursor','pointer')
+                .style('z-index', 10)
+                .on('click', function(val){
+                    if (val.id in ids) {
+                      alert("Sorry!  You've already clicked this node!");
+                    } else {
+                      nodeQuery(objs, val);
+                      ids.push(val['id'])
+                    }
+                })
+
+            allNodes.transition().duration(1000).attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; });
+            node.append("circle")
+              .attr("r", 4.5)
+
+            node.append("text")
+                .attr("y", function(d) { return d.children ? -18 : 18; })
+                .attr("dy", 3)
+                .style("text-anchor", "middle")
+                .text(function(d) { return d.name; });
           }
-        
+
           /* Tip of the Spear */
           var rootEvent = 'App Open';
           /* Graph Root Event */
           var graphData = {
             'name':rootEvent,
-            'id': 1
+            'id': 1,
+            'width': 1
           };
-            
+
           addNode(graphData);
-          
-          /* Top Event Queries   */  
+
+          /* Top Event Queries   */
           var topEventsParams = {'limit':'30'};
           var topEvents = MP.api.topEvents(topEventsParams);
           /* Global Event List */
           var objs = {};
-          var ids = [1];
+          var ids = [];
           var globalEvents = [];
-    
+
           function randomNum() {
               return _.random(0, 10000000);
           }
@@ -116,14 +110,14 @@
                 /* Store top events */
                 _.each(_.keys(objs), function(key){globalEvents.push(key)});
           });
-          
+
           /* Let the Funnel Queries Begin... */
-          
+
           var nodeQuery = function(event_list, node){
               /* Dict with top counts for each event */
               var nodes = {};
               var promises = []
-              
+
               _.each(_.keys(event_list), function(key) {
                   var event = event_list[key];
                   if (event != rootEvent) {
@@ -131,30 +125,31 @@
                       promises.push(MP.api.funnel(node.name, event));
                   }
               });
-              
-              /* Make Funnel Queries */
+
               Promise.all(promises).then(function(promiseArray){
-                _.each(promiseArray, function(data){ 
+                _.each(promiseArray, function(data){
                     total = 0;
                     _.each(_.values(data[1]), function(funnelObj){ total += funnelObj['count']});
                     nodes[_.values(data[1])[0]['event']] = total;
                 });
               }).then(function(){
                  /* Add Data to Graph Data */
-                 
+                 var total = _.values(nodes).reduce(function(a , b){return a + b;});
                  _.each(_.keys(nodes), function(key){
                    /* Find the ID of the element that we care about -- Add this logic in */
                     var rando = randomNum();
-                   
+                    var width = nodes[key] / total;
+                    console.log(key, width)
+                    if (width < .02 ) { return }; 
                     if (node.children) {
-                        node.children.push({'name':key, 'id':rando});
+                        node.children.push({'name':key, 'width': width, 'id':rando});
                     } else {
-                        node.children = [{'name':key,'id':rando}];
+                        node.children = [{'name':key, 'width': width, 'id':rando}];
                     }
-                  
+
                  })
                  addNode(graphData);
-                 
+
               });
           }
       });
