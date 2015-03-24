@@ -152,7 +152,7 @@
                 _.each(promiseArray, function(data){
                     total = 0;
                     _.each(_.values(data[1]), function(funnelObj){ total += funnelObj['count']});
-                    nodes[_.values(data[1])[0]['event']] = total;
+                    nodes[_.values(data[1])[0]['event']] = total / 2;
                 });
               }).then(function(){
                  /* Add Data to Graph Data */
