@@ -31,7 +31,8 @@
           var width = 960;
           var height = 800;
           var cluster = d3.layout.cluster()
-            .size([height, width - 160])
+            .size([height, width])
+            //.nodeSize([15, 5])
 
           var diagonal = d3.svg.diagonal()
               .projection(function(d) { return [d.y, d.x]; });
@@ -43,16 +44,22 @@
               .attr("transform", "translate(40,0)");
 
           function addNode(data){
+
+            d3.selectAll(".text").remove();
+            d3.selectAll(".node").remove();
+            d3.selectAll(".link").remove();
+
             var nodes = cluster.nodes(data),
                 links = cluster.links(nodes);
 
+            nodes.forEach(function(d) { d.y = d.depth * 180; })
 
             var allLinks = svg.selectAll(".link").data(links);
             var link = allLinks.enter().append("path")
                 .attr("class", "link")
-                /*.style('stroke-width', function(d) {
-                  return ( d['target']['width'] );
-                });*/
+                .style('stroke-width', function(d) {
+                  return ( d.target.root * .2 );
+                });
 
             allLinks.transition().duration(1000).attr("d", diagonal);
 
@@ -61,39 +68,41 @@
                 .attr("class", "node")
                 .attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; })
                 .style('cursor','pointer')
-                .style('z-index', 10)
                 .style('opacity', 0.6)
                 .on('mouseover', function(d){
+                    console.log(d)
                     d3.select(this).style('opacity', 1.0)
                     d3.select("text").style('opacity', 1.0);
-                    console.log(d);
                 })
                 .on('mouseout', function(d){
                   d3.select(this).style('opacity', 0.6)
-                  //d3.select("text").style('opacity', 0.4);
                 })
                 .on('click', function(val){
-                    
+
                     if (ids.has(val.id)) {
                       alert("Sorry!  You've already clicked this node!");
                     } else {
                       nodeQuery(objs, val);
                       ids.add(val.id)
                     }
-                }) 
+                })
+
             node.append('svg:title')
-              .text(function(d) { return 'Count: ' + String(d.count); });
+              .text(function(d) { return 'Count: ' + String(d.count) + '\nConversion From Parent Event: ' + String(d.conversion) + '%' + '\nConversion From Root Event: ' + String(d.root + '%'); });
 
             allNodes.transition().duration(1000).attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; });
             node.append("circle")
                 .attr("r", 4.5)
 
             node.append("text")
-                .attr("y", function(d) { return d.children ? -18 : 18; })
-                .attr("dy", 3)
-                .style("text-anchor", "middle")
-                .text(function(d) { return d.name; });
+                .attr("dx", function(d) { return d.children ? 0 : 8; })
+                .attr("dy", function(d) { return d.children ? 18 : 3; })
+                .text(function(d) { return d.name; })
+                .attr("text-anchor", function(d){ 
+                  return ( d.children ? "middle" : undefined );
+                });
           }
+          d3.select(self.frameElement).style("height", height + "px");
 
           /* Tip of the Spear */
           var rootEvent = 'App Open';
@@ -101,13 +110,14 @@
           var graphData = {
             'name':rootEvent,
             'id': 1,
-            
+            'conversion': 100,
+            'root' : 100
           };
 
           /* Find the Root Event Count */
           var rootEventCount = MP.api.funnel(rootEvent, rootEvent);
-          
-          
+
+
           $.when(rootEventCount).done(function(eventCount){
               eventTotal = 0;
               _.each(_.values(eventCount[0]), function(count){ eventTotal += count['count']});
@@ -115,7 +125,7 @@
               addNode(graphData);
           });
 
-          
+
           /* Top Event Queries   */
           var topEventsParams = {'limit':'30'};
           var topEvents = MP.api.topEvents(topEventsParams);
@@ -145,7 +155,7 @@
                   var event = event_list[key];
                   var parent;
                   var events = [];
-                  
+
                   if (event != node.name) {
                       /* Build a list of promises */
                       events.push(event);
@@ -154,25 +164,25 @@
                         parent = node.parent;
                         while (parent.name !=  rootEvent){
                             events.push(parent.name);
-                            parent = parent.parent;  
+                            parent = parent.parent;
                         }
                         events.push(rootEvent);
                         events.reverse();
                         promises.push(MP.api.funnel.apply(MP.api, events));
+
                       } else {
-                          promises.push(MP.api.funnel(node.name, event));
+                        promises.push(MP.api.funnel(node.name, event));
                       }
                   }
               });
 
               Promise.all(promises).then(function(promiseArray){
-                
                 _.each(promiseArray, function(data){
                     console.log(data);
-                    
                     total = 0;
-                    _.each(_.values(data[data.length -1]), function(funnelObj){ total += funnelObj['count']});
-                    nodes[_.values(data[data.length -1])[0]['event']] = total;
+                    var length = data.length - 1;
+                    _.each(_.values(data[length]), function(funnelObj){ total += funnelObj['count']});
+                    nodes[_.values(data[length])[0]['event']] = total;
                 });
               }).then(function(){
                  /* Add Data to Graph Data */
@@ -180,21 +190,28 @@
                  _.each(_.keys(nodes), function(key){
                    /* Find the ID of the element that we care about -- Add this logic in */
                     var rando = randomNum();
-                    /* 
-                    var percent = nodes[key] / total;
-                    var width = ( node['width'] * percent )
-                    if (width < .02 ) { return }; 
-                    */
+                    var conversion = Math.floor(nodes[key] / node.count * 100);
+                    var root = Math.floor(nodes[key] / graphData.count * 100);
+                    if (conversion < 2 ) { return };
                     if (node.children) {
-                        node.children.push({'name':key, 'id':rando, 'count':nodes[key]});
+                        node.children.push({
+                          'name':key, 
+                          'id':rando, 
+                          'root': root, 
+                          'conversion': conversion, 
+                          'count':nodes[key]
+                        });
                     } else {
-                        node.children = [{'name':key, 'id':rando, 'count':nodes[key]}];
+                        node.children = [{
+                          'name':key, 
+                          'id':rando, 
+                          'root': root, 
+                          'conversion': conversion, 
+                          'count':nodes[key]
+                        }];
                     }
-
                  })
-                 
                  addNode(graphData);
-
               });
           }
       });
